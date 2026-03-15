@@ -9,6 +9,7 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
     <style>
+      /* (Les styles restent identiques) */
       * {
         margin: 0;
         padding: 0;
@@ -16,7 +17,6 @@
         font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
       }
       body {
-        /* Dégradé algérien dynamique avec mouvement */
         background: linear-gradient(
           145deg,
           #006633 0%,
@@ -496,42 +496,6 @@
         border-radius: 40px;
         color: #ffd700;
       }
-
-      /* CONTACT INFO */
-      .contact-info {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        gap: 20px;
-        background: rgba(0, 0, 0, 0.3);
-        backdrop-filter: blur(5px);
-        padding: 25px;
-        border-radius: 40px;
-        border: 2px solid #ffd700;
-      }
-      .info-card {
-        background: rgba(255, 255, 255, 0.1);
-        display: flex;
-        align-items: center;
-        gap: 18px;
-        padding: 18px;
-        border-radius: 30px;
-        border: 1px solid rgba(255, 215, 0, 0.3);
-        transition: all 0.3s;
-        color: white;
-      }
-      .info-card:hover {
-        transform: scale(1.02);
-        border-color: #ffd700;
-        background: rgba(255, 255, 255, 0.2);
-      }
-      .info-card i {
-        font-size: 2rem;
-        color: #ffd700;
-      }
-      .info-card div strong {
-        color: white;
-      }
-
       /* FOOTER */
       .footer {
         margin-top: 50px;
@@ -682,6 +646,7 @@
         <div class="form-container">
           <form id="pedaForm">
             <input type="hidden" name="type" value="pédagogique" />
+            <input type="hidden" name="id" value="" />
             <div class="form-grid">
               <div class="form-group">
                 <label>اللقب</label
@@ -785,6 +750,7 @@
         <div class="form-container">
           <form id="serviceForm">
             <input type="hidden" name="type" value="service" />
+            <input type="hidden" name="id" value="" />
             <div class="form-grid">
               <div class="form-group">
                 <label>اللقب</label
@@ -854,58 +820,6 @@
         </div>
       </div>
 
-      <!-- PAGE CONTACT -->
-      <div id="contact" class="page">
-        <h2
-          class="section-title"
-          style="border-right-color: #ffd700; color: white"
-        >
-          تواصل مع الإدارة
-        </h2>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px">
-          <div class="form-container">
-            <form id="contactForm">
-              <input type="hidden" name="type" value="contact" />
-              <div class="form-group">
-                <label>الاسم الكامل *</label
-                ><input
-                  type="text"
-                  name="nomComplet"
-                  placeholder="ادخل اسمك الكامل"
-                  required
-                />
-              </div>
-              <div class="form-group">
-                <label>رقم الهاتف *</label
-                ><input
-                  type="tel"
-                  name="telephone"
-                  placeholder="ادخل رقم هاتفك"
-                  required
-                />
-              </div>
-              <div class="form-group">
-                <label>وسيلة التواصل المفضلة</label
-                ><select name="moyen">
-                  <option>اختر وسيلة</option>
-                  <option>الهاتف</option>
-                  <option>البريد</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label>الرسالة *</label
-                ><textarea
-                  name="description"
-                  rows="4"
-                  placeholder="اكتب رسالتك..."
-                  required
-                ></textarea>
-              </div>
-              <button type="submit" class="submit-btn">إرسال</button>
-            </form>
-          </div>
-          
-
       <!-- PAGE ADMIN -->
       <div id="admin" class="page">
         <h2
@@ -943,16 +857,13 @@
       <!-- FOOTER -->
       <div class="footer">
         <div>© 2026 التضامن الوطني الطلابي - SNE · جميع الحقوق محفوظة</div>
-        <div>
-          
-        
-        </div>
+        <div></div>
       </div>
     </div>
 
     <script>
       const SCRIPT_URL =
-        "https://script.google.com/macros/s/AKfycbzPNj_I7CFKRnKGWw17mzAWcxWdHHW10cA5M4Yz_m0OBoSH9O736M1NSF4E_LbOLDaO/exec";
+        "https://script.google.com/macros/s/AKfycbymHrZ55C1H05Ic5OojmzvLfrECD2jf-Y7pV2zdvrW7crF_10jGF8qUAQ_XnKDqP1srfA/exec";
 
       const tabs = document.querySelectorAll(".tab-link");
       const pages = document.querySelectorAll(".page");
@@ -971,10 +882,23 @@
         tab.addEventListener("click", () => switchPage(tab.dataset.page));
       });
 
+      // Génération d'un ID unique pour chaque soumission
+      function generateId() {
+        return Date.now() + "-" + Math.random().toString(36).substr(2, 9);
+      }
+
       async function submitForm(form, type) {
+        const uniqueId = generateId();
+
         const formData = new FormData(form);
-        formData.append("tag", type);
+        formData.set("id", uniqueId);
+        formData.set("type", type);
+        formData.set("tag", type);
+        formData.set("status", "en attente");
+        formData.set("email", "");
+
         const data = Object.fromEntries(formData.entries());
+
         try {
           await fetch(SCRIPT_URL, {
             method: "POST",
@@ -988,6 +912,7 @@
           if (type === "service") loadRecentService();
         } catch (error) {
           alert("خطأ في الإرسال، تأكد من الاتصال");
+          console.error(error);
         }
       }
 
@@ -999,10 +924,6 @@
         e.preventDefault();
         submitForm(e.target, "service");
       });
-      document.getElementById("contactForm").addEventListener("submit", (e) => {
-        e.preventDefault();
-        submitForm(e.target, "contact");
-      });
 
       async function loadStats() {
         try {
@@ -1012,13 +933,15 @@
             (d) => d.type === "pédagogique",
           ).length;
           document.getElementById("stat1").innerText = data.filter(
-            (d) => d.statut === "terminé",
+            (d) => d.status === "terminé",
           ).length;
           document.getElementById("stat2").innerText = data.filter(
-            (d) => d.statut === "en attente",
+            (d) => d.status === "en attente" || d.status === "en cours",
           ).length;
           document.getElementById("stat3").innerText = data.length;
-        } catch (e) {}
+        } catch (e) {
+          console.warn("Impossible de charger les stats", e);
+        }
       }
 
       async function loadRecentService() {
@@ -1065,17 +988,20 @@
                 : item.type === "pédagogique"
                   ? "pédagogique"
                   : "contact";
+            const currentStatus = item.status || "en attente";
             html += `<div class="preoc-item ${tagClass}">
                         <span class="preoc-tag">${item.type}</span>
-                        <span><strong>${item.nom || item.nomComplet || ""} ${item.prenom || ""}</strong></span>
+                        <span><strong>${item.nom || ""} ${item.prenom || ""}</strong></span>
                         <span>📞 ${item.telephone || ""}</span>
                         <span>📝 ${item.description?.substring(0, 70)}...</span>
-                        <span>🕒 ${item.timestamp}</span>
+                        <span>🕒 ${item.timestamp ? new Date(item.timestamp).toLocaleString("ar-DZ") : ""}</span>
+                        <span><strong>الحالة:</strong> ${currentStatus}</span>
                     </div>`;
           });
           listDiv.innerHTML = html;
         } catch (e) {
           listDiv.innerHTML = "خطأ في تحميل البيانات";
+          console.error(e);
         }
       }
 
