@@ -9,7 +9,6 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
     <style>
-      /* (Les styles restent identiques) */
       * {
         margin: 0;
         padding: 0;
@@ -196,7 +195,7 @@
         margin-bottom: 15px;
       }
       .hero-logo img {
-        height: 70px;
+        height: 100px;
         width: auto;
         border-radius: 15px;
         border: 3px solid #ffd700;
@@ -277,45 +276,6 @@
         background: linear-gradient(145deg, #d32f2f, #006633);
       }
 
-      /* STATS */
-      .stats {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 15px;
-        background: rgba(0, 0, 0, 0.2);
-        backdrop-filter: blur(5px);
-        padding: 25px;
-        border-radius: 40px;
-        margin: 40px 0;
-        border: 2px solid rgba(255, 215, 0, 0.3);
-      }
-      .stat-item {
-        background: rgba(255, 255, 255, 0.1);
-        text-align: center;
-        padding: 18px 5px;
-        border-radius: 28px;
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        transition: all 0.3s;
-        color: white;
-      }
-      .stat-item:hover {
-        transform: scale(1.05);
-        border-color: #ffd700;
-        background: rgba(255, 255, 255, 0.2);
-      }
-      .stat-number {
-        font-size: 2.5rem;
-        font-weight: 800;
-        color: #ffd700;
-        transition: color 0.3s;
-      }
-      .stat-item:hover .stat-number {
-        color: white;
-      }
-      .stat-label {
-        color: white;
-      }
-
       /* SERVICES CATEGORIES */
       .services-cats {
         display: grid;
@@ -330,9 +290,15 @@
         border-radius: 28px;
         text-align: center;
         cursor: pointer;
-        border: 1px solid rgba(255, 255, 255, 0.2);
+        border: 2px solid transparent;
         transition: all 0.3s;
         color: white;
+      }
+      .service-cat.selected {
+        border-color: #ffd700;
+        background: rgba(255, 255, 255, 0.25);
+        transform: scale(1.02);
+        box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
       }
       .service-cat:hover {
         border-color: #ffd700;
@@ -434,6 +400,80 @@
         background: linear-gradient(145deg, #d32f2f, #006633);
       }
 
+      /* Champ compte conditionnel */
+      .compte-field {
+        display: none;
+      }
+      /* Champ résidence conditionnel */
+      .residence-field {
+        display: none;
+      }
+
+      /* GALERIE */
+      .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 25px;
+        margin-top: 30px;
+      }
+      .gallery-post {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(8px);
+        border-radius: 24px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 215, 0, 0.3);
+        transition: all 0.3s;
+        color: white;
+      }
+      .gallery-post:hover {
+        transform: translateY(-5px);
+        border-color: #ffd700;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+      }
+      .gallery-header {
+        display: flex;
+        align-items: center;
+        padding: 15px;
+        border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+      }
+      .gallery-header img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin-left: 10px;
+        border: 2px solid #ffd700;
+      }
+      .gallery-header h3 {
+        font-size: 1.1rem;
+        color: #ffd700;
+      }
+      .gallery-header p {
+        font-size: 0.9rem;
+        opacity: 0.8;
+      }
+      .gallery-images {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 5px;
+        padding: 10px;
+      }
+      .gallery-images img {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 15px;
+        transition: transform 0.3s;
+      }
+      .gallery-images img:hover {
+        transform: scale(1.05);
+        box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+      }
+      .gallery-description {
+        padding: 15px;
+        border-top: 1px solid rgba(255, 215, 0, 0.2);
+        font-size: 0.95rem;
+      }
+
       /* ADMIN PANEL */
       .admin-login {
         background: rgba(0, 0, 0, 0.3);
@@ -486,9 +526,6 @@
       .preoc-item.pédagogique {
         border-color: #f39c12;
       }
-      .preoc-item.contact {
-        border-color: #3498db;
-      }
       .preoc-tag {
         font-weight: 700;
         background: rgba(0, 0, 0, 0.3);
@@ -496,6 +533,7 @@
         border-radius: 40px;
         color: #ffd700;
       }
+
       /* FOOTER */
       .footer {
         margin-top: 50px;
@@ -526,8 +564,8 @@
         .services-cats {
           grid-template-columns: repeat(2, 1fr);
         }
-        .stats {
-          grid-template-columns: repeat(2, 1fr);
+        .gallery-grid {
+          grid-template-columns: 1fr;
         }
         .logo img {
           height: 40px;
@@ -535,6 +573,17 @@
         .hero h2 {
           font-size: 1.8rem;
         }
+      }
+
+      .admin-section {
+        margin-top: 30px;
+        padding: 20px;
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 20px;
+      }
+      .admin-section h3 {
+        color: #ffd700;
+        margin-bottom: 20px;
       }
     </style>
   </head>
@@ -566,6 +615,7 @@
         <button class="tab-link active" data-page="accueil">الرئيسية</button>
         <button class="tab-link" data-page="peda">شؤون بيداغوجية</button>
         <button class="tab-link" data-page="service">شؤون خدماتية</button>
+        <button class="tab-link" data-page="galerie">معرض النشاطات</button>
         <button class="tab-link" data-page="admin">الإدارة (مسؤول)</button>
       </div>
 
@@ -609,25 +659,6 @@
             >
           </div>
         </div>
-        <!-- STATS -->
-        <div class="stats" id="statsContainer">
-          <div class="stat-item">
-            <span class="stat-number" id="stat0">0</span
-            ><span class="stat-label">بيداغوجية</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-number" id="stat1">0</span
-            ><span class="stat-label">تم حلها</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-number" id="stat2">0</span
-            ><span class="stat-label">قيد المعالجة</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-number" id="stat3">0</span
-            ><span class="stat-label">إجمالي الانشغالات</span>
-          </div>
-        </div>
       </div>
 
       <!-- PAGE PÉDAGOGIQUE -->
@@ -649,8 +680,8 @@
             <input type="hidden" name="id" value="" />
             <div class="form-grid">
               <div class="form-group">
-                <label>اللقب</label
-                ><input
+                <label>اللقب</label>
+                <input
                   type="text"
                   name="nom"
                   placeholder="ادخل لقبك"
@@ -658,8 +689,8 @@
                 />
               </div>
               <div class="form-group">
-                <label>الاسم</label
-                ><input
+                <label>الاسم</label>
+                <input
                   type="text"
                   name="prenom"
                   placeholder="ادخل اسمك"
@@ -667,8 +698,8 @@
                 />
               </div>
               <div class="form-group">
-                <label>رقم الهاتف</label
-                ><input
+                <label>رقم الهاتف</label>
+                <input
                   type="tel"
                   name="telephone"
                   placeholder="ادخل رقم هاتفك"
@@ -676,28 +707,37 @@
                 />
               </div>
               <div class="form-group">
-                <label>رقم التسجيل</label
-                ><input
+                <label>رقم التسجيل</label>
+                <input
                   type="text"
                   name="numero"
                   placeholder="رقم تسجيلك الجامعي"
                 />
               </div>
               <div class="form-group">
-                <label>وسيلة التواصل</label
-                ><select name="moyen">
-                  <option>اختر وسيلة</option>
-                  <option>الهاتف</option>
-                  <option>البريد</option>
-                  <option>الواتساب</option>
-                  <option>فايسبوك</option>
-                  <option>انستغرام</option>
-                  <option>تلغرام</option>
+                <label>وسيلة التواصل</label>
+                <select name="moyen" class="moyen-select" data-form="peda">
+                  <option value="">اختر وسيلة</option>
+                  <option value="الهاتف">الهاتف</option>
+                  <option value="البريد">البريد</option>
+                  <option value="الواتساب">الواتساب</option>
+                  <option value="فايسبوك">فايسبوك</option>
+                  <option value="انستغرام">انستغرام</option>
+                  <option value="تلغرام">تلغرام</option>
                 </select>
               </div>
+              <!-- Champ compte conditionnel -->
+              <div class="form-group compte-field" id="compte-field-peda">
+                <label>الحساب (اسم المستخدم أو الرابط)</label>
+                <input
+                  type="text"
+                  name="compte"
+                  placeholder="أدخل حسابك على المنصة"
+                />
+              </div>
               <div class="form-group">
-                <label>التخصص</label
-                ><select name="specialite">
+                <label>التخصص</label>
+                <select name="specialite">
                   <option>اختر تخصصك</option>
                   <option>رياضيات</option>
                   <option>فيزياء</option>
@@ -712,8 +752,8 @@
                 </select>
               </div>
               <div class="full-width form-group">
-                <label>وصف الانشغال</label
-                ><textarea name="description" rows="4" required></textarea>
+                <label>وصف الانشغال</label>
+                <textarea name="description" rows="4" required></textarea>
               </div>
             </div>
             <button type="submit" class="submit-btn">إرسال الانشغال</button>
@@ -721,7 +761,7 @@
         </div>
       </div>
 
-      <!-- PAGE SERVICE -->
+      <!-- PAGE SERVICE avec sélection par icônes -->
       <div id="service" class="page">
         <h2
           class="section-title"
@@ -729,32 +769,40 @@
         >
           انشغال خدماتي
         </h2>
-        <div class="services-cats">
-          <div class="service-cat">
+        <div class="services-cats" id="service-cats-container">
+          <div class="service-cat" data-categorie="الإقامة">
             <i class="fas fa-bed"></i>
             <h4>الإقامة</h4>
           </div>
-          <div class="service-cat">
+          <div class="service-cat" data-categorie="الإطعام">
             <i class="fas fa-utensils"></i>
             <h4>الإطعام</h4>
           </div>
-          <div class="service-cat">
+          <div class="service-cat" data-categorie="النقل">
             <i class="fas fa-bus"></i>
             <h4>النقل</h4>
           </div>
-          <div class="service-cat">
+          <div class="service-cat" data-categorie="المنحة">
             <i class="fas fa-coins"></i>
             <h4>المنحة</h4>
           </div>
         </div>
+        <!-- Champ caché pour stocker la catégorie sélectionnée -->
+        <input
+          type="hidden"
+          id="selected-categorie"
+          name="categorie"
+          value=""
+        />
+
         <div class="form-container">
           <form id="serviceForm">
             <input type="hidden" name="type" value="service" />
             <input type="hidden" name="id" value="" />
             <div class="form-grid">
               <div class="form-group">
-                <label>اللقب</label
-                ><input
+                <label>اللقب</label>
+                <input
                   type="text"
                   name="nom"
                   placeholder="ادخل لقبك"
@@ -762,8 +810,8 @@
                 />
               </div>
               <div class="form-group">
-                <label>الاسم</label
-                ><input
+                <label>الاسم</label>
+                <input
                   type="text"
                   name="prenom"
                   placeholder="ادخل اسمك"
@@ -771,8 +819,8 @@
                 />
               </div>
               <div class="form-group">
-                <label>رقم الهاتف</label
-                ><input
+                <label>رقم الهاتف</label>
+                <input
                   type="tel"
                   name="telephone"
                   placeholder="ادخل رقم هاتفك"
@@ -780,43 +828,74 @@
                 />
               </div>
               <div class="form-group">
-                <label>رقم التسجيل</label
-                ><input
+                <label>رقم التسجيل</label>
+                <input
                   type="tel"
                   name="numero"
                   placeholder="رقم تسجيلك الجامعي"
                 />
               </div>
               <div class="form-group">
-                <label>نوع الخدمة</label
-                ><select name="categorie">
-                  <option>الإقامة</option>
-                  <option>الإطعام</option>
-                  <option>النقل</option>
-                  <option>المنحة</option>
+                <label>وسيلة التواصل</label>
+                <select name="moyen" class="moyen-select" data-form="service">
+                  <option value="">اختر وسيلة</option>
+                  <option value="الهاتف">الهاتف</option>
+                  <option value="البريد">البريد</option>
+                  <option value="الواتساب">الواتساب</option>
+                  <option value="فايسبوك">فايسبوك</option>
+                  <option value="انستغرام">انستغرام</option>
+                  <option value="تلغرام">تلغرام</option>
+                </select>
+              </div>
+              <!-- Champ compte conditionnel -->
+              <div class="form-group compte-field" id="compte-field-service">
+                <label>الحساب (اسم المستخدم أو الرابط)</label>
+                <input
+                  type="text"
+                  name="compte"
+                  placeholder="أدخل حسابك على المنصة"
+                />
+              </div>
+              <!-- Champ résidence conditionnel (apparaît pour الإقامة ou الإطعام) -->
+              <div class="form-group residence-field" id="residence-field">
+                <label>اختر الإقامة الجامعية</label>
+                <select name="residence">
+                  <option value="">اختر الإقامة</option>
+                  <option value="رماس بومدين 1000 سرير">
+                    رماس بومدين 1000 سرير
+                  </option>
+                  <option value="مزوني عبد العزيز 3000 سرير">
+                    مزوني عبد العزيز 3000 سرير
+                  </option>
+                  <option value="احمد مدغري 2000 سرير">
+                    احمد مدغري 2000 سرير
+                  </option>
+                  <option value="اقامة الصومام">اقامة الصومام</option>
                 </select>
               </div>
               <div class="full-width form-group">
-                <label>وصف الانشغال</label
-                ><textarea name="description" rows="4" required></textarea>
+                <label>وصف الانشغال</label>
+                <textarea name="description" rows="4" required></textarea>
               </div>
             </div>
             <button type="submit" class="submit-btn">إرسال الانشغال</button>
           </form>
         </div>
-        <div
-          class="reclam-list"
-          style="
-            background: rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(5px);
-            border-radius: 30px;
-            padding: 20px;
-            margin-top: 30px;
-            border: 2px solid #ffd700;
-          "
+      </div>
+
+      <!-- PAGE GALERIE -->
+      <div id="galerie" class="page">
+        <h2
+          class="section-title"
+          style="border-right-color: #ffd700; color: white"
         >
-          <h3 style="color: white">آخر الانشغالات الخدماتية</h3>
-          <div id="serviceRecent">سيتم التحميل...</div>
+          معرض النشاطات
+        </h2>
+        <div class="gallery-grid" id="gallery-container">
+          <!-- Les publications seront chargées depuis Google Sheets -->
+          <div style="text-align: center; color: white; padding: 50px">
+            جاري تحميل النشاطات...
+          </div>
         </div>
       </div>
 
@@ -844,13 +923,50 @@
             style="background: #d32f2f"
             onclick="loadAdminData()"
           >
-            تحديث القائمة
+            تحديث قائمة الانشغالات
           </button>
           <div
             id="adminList"
             class="preoccupation-list"
             style="margin-top: 20px"
           ></div>
+
+          <!-- Section pour ajouter une publication -->
+          <div class="admin-section">
+            <h3>إضافة نشاط جديد إلى المعرض</h3>
+            <form id="addPublicationForm">
+              <div class="form-grid">
+                <div class="form-group full-width">
+                  <label>تاريخ النشاط</label>
+                  <input
+                    type="text"
+                    name="date"
+                    placeholder="مثال: 20 مارس 2026"
+                    required
+                  />
+                </div>
+                <div class="form-group full-width">
+                  <label>الوصف</label>
+                  <textarea
+                    name="description"
+                    rows="3"
+                    placeholder="وصف النشاط..."
+                    required
+                  ></textarea>
+                </div>
+                <div class="form-group full-width">
+                  <label>روابط الصور (افصل بين الروابط بفاصلة)</label>
+                  <textarea
+                    name="images"
+                    rows="3"
+                    placeholder="https://exemple.com/image1.jpg, https://exemple.com/image2.jpg"
+                    required
+                  ></textarea>
+                </div>
+              </div>
+              <button type="submit" class="submit-btn">نشر النشاط</button>
+            </form>
+          </div>
         </div>
       </div>
 
@@ -876,10 +992,60 @@
           (t) => t.dataset.page === pageId,
         );
         if (activeTab) activeTab.classList.add("active");
+
+        // Charger la galerie si on y accède
+        if (pageId === "galerie") {
+          loadGallery();
+        }
       }
 
       tabs.forEach((tab) => {
         tab.addEventListener("click", () => switchPage(tab.dataset.page));
+      });
+
+      // Gestion conditionnelle du champ "compte" en fonction du moyen de communication
+      document.querySelectorAll(".moyen-select").forEach((select) => {
+        select.addEventListener("change", function () {
+          const formId = this.dataset.form;
+          const compteField = document.getElementById(`compte-field-${formId}`);
+          const selected = this.value;
+          if (selected === "فايسبوك" || selected === "انستغرام") {
+            compteField.style.display = "flex";
+            compteField
+              .querySelector("input")
+              .setAttribute("required", "required");
+          } else {
+            compteField.style.display = "none";
+            compteField.querySelector("input").removeAttribute("required");
+            compteField.querySelector("input").value = "";
+          }
+        });
+      });
+
+      // Sélection des catégories de service et affichage conditionnel du champ résidence
+      const serviceCats = document.querySelectorAll(".service-cat");
+      const selectedCategorieInput =
+        document.getElementById("selected-categorie");
+      const residenceField = document.getElementById("residence-field");
+      const residenceSelect = residenceField.querySelector("select");
+
+      serviceCats.forEach((cat) => {
+        cat.addEventListener("click", function () {
+          serviceCats.forEach((c) => c.classList.remove("selected"));
+          this.classList.add("selected");
+          const categorie = this.dataset.categorie;
+          selectedCategorieInput.value = categorie;
+
+          // Afficher le champ résidence si la catégorie est "الإقامة" ou "الإطعام"
+          if (categorie === "الإقامة" || categorie === "الإطعام") {
+            residenceField.style.display = "flex";
+            residenceSelect.setAttribute("required", "required");
+          } else {
+            residenceField.style.display = "none";
+            residenceSelect.removeAttribute("required");
+            residenceSelect.value = "";
+          }
+        });
       });
 
       // Génération d'un ID unique pour chaque soumission
@@ -887,7 +1053,28 @@
         return Date.now() + "-" + Math.random().toString(36).substr(2, 9);
       }
 
+      // Soumission formulaire pédagogique
+      document
+        .getElementById("pedaForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          await submitForm(e.target, "pédagogique");
+        });
+
+      // Soumission formulaire service
+      document
+        .getElementById("serviceForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          await submitForm(e.target, "service");
+        });
+
       async function submitForm(form, type) {
+        if (type === "service" && !selectedCategorieInput.value) {
+          alert("الرجاء اختيار نوع الخدمة");
+          return;
+        }
+
         const uniqueId = generateId();
 
         const formData = new FormData(form);
@@ -896,6 +1083,19 @@
         formData.set("tag", type);
         formData.set("status", "en attente");
         formData.set("email", "");
+
+        if (type === "service") {
+          formData.set("categorie", selectedCategorieInput.value);
+        }
+
+        if (!formData.get("compte")) {
+          formData.set("compte", "");
+        }
+
+        // Pour la résidence, si le champ est caché, on envoie une chaîne vide
+        if (!formData.get("residence")) {
+          formData.set("residence", "");
+        }
 
         const data = Object.fromEntries(formData.entries());
 
@@ -908,59 +1108,72 @@
           });
           alert("تم إرسال انشغالك بنجاح");
           form.reset();
-          loadStats();
-          if (type === "service") loadRecentService();
+          if (type === "service") {
+            serviceCats.forEach((c) => c.classList.remove("selected"));
+            selectedCategorieInput.value = "";
+            residenceField.style.display = "none";
+            residenceSelect.removeAttribute("required");
+          }
+          const formId = type === "pédagogique" ? "peda" : "service";
+          document.getElementById(`compte-field-${formId}`).style.display =
+            "none";
         } catch (error) {
           alert("خطأ في الإرسال، تأكد من الاتصال");
           console.error(error);
         }
       }
 
-      document.getElementById("pedaForm").addEventListener("submit", (e) => {
-        e.preventDefault();
-        submitForm(e.target, "pédagogique");
-      });
-      document.getElementById("serviceForm").addEventListener("submit", (e) => {
-        e.preventDefault();
-        submitForm(e.target, "service");
-      });
+      // Chargement de la galerie depuis Google Sheets
+      async function loadGallery() {
+        const galleryContainer = document.getElementById("gallery-container");
+        galleryContainer.innerHTML =
+          '<div style="text-align: center; color: white; padding: 50px;">جاري تحميل النشاطات...</div>';
 
-      async function loadStats() {
         try {
-          const response = await fetch(SCRIPT_URL);
-          const data = await response.json();
-          document.getElementById("stat0").innerText = data.filter(
-            (d) => d.type === "pédagogique",
-          ).length;
-          document.getElementById("stat1").innerText = data.filter(
-            (d) => d.status === "terminé",
-          ).length;
-          document.getElementById("stat2").innerText = data.filter(
-            (d) => d.status === "en attente" || d.status === "en cours",
-          ).length;
-          document.getElementById("stat3").innerText = data.length;
-        } catch (e) {
-          console.warn("Impossible de charger les stats", e);
+          const response = await fetch(SCRIPT_URL + "?type=publications");
+          const posts = await response.json();
+
+          if (!posts || posts.length === 0) {
+            galleryContainer.innerHTML =
+              '<div style="text-align: center; color: white; padding: 50px;">لا توجد نشاطات بعد</div>';
+            return;
+          }
+
+          let html = "";
+          posts.reverse().forEach((post) => {
+            const images = post.images
+              ? post.images.split(",").map((url) => url.trim())
+              : [];
+            let imagesHtml = "";
+            images.forEach((img) => {
+              if (img) imagesHtml += `<img src="${img}" alt="صورة النشاط" />`;
+            });
+
+            html += `
+                        <div class="gallery-post">
+                            <div class="gallery-header">
+                                <img src="https://i.ibb.co/v4m2g0X3/unnamed-6.jpg" alt="شعار SNE">
+                                <div>
+                                    <h3>${post.auteur || "التضامن الوطني الطلابي - SNE"}</h3>
+                                    <p>${post.date || ""}</p>
+                                </div>
+                            </div>
+                            ${imagesHtml ? `<div class="gallery-images">${imagesHtml}</div>` : ""}
+                            <div class="gallery-description">
+                                ${post.description || ""}
+                            </div>
+                        </div>
+                    `;
+          });
+          galleryContainer.innerHTML = html;
+        } catch (error) {
+          console.error("Erreur chargement galerie:", error);
+          galleryContainer.innerHTML =
+            '<div style="text-align: center; color: white; padding: 50px;">خطأ في تحميل النشاطات</div>';
         }
       }
 
-      async function loadRecentService() {
-        try {
-          const response = await fetch(SCRIPT_URL);
-          const data = await response.json();
-          const services = data
-            .filter((d) => d.type === "service")
-            .slice(-3)
-            .reverse();
-          let html = "";
-          services.forEach((s) => {
-            html += `<div class="preoc-item service" style="padding:10px;">📌 ${s.description?.substring(0, 50)}... (${s.nom})</div>`;
-          });
-          document.getElementById("serviceRecent").innerHTML =
-            html || "لا توجد انشغالات بعد";
-        } catch (e) {}
-      }
-
+      // ADMIN
       const ADMIN_PASSWORD = "SNE#S@IDA2026";
       function adminLogin() {
         if (document.getElementById("adminPass").value === ADMIN_PASSWORD) {
@@ -969,6 +1182,40 @@
           loadAdminData();
         } else alert("كلمة مرور خاطئة");
       }
+
+      // Soumission du formulaire d'ajout de publication
+      document
+        .getElementById("addPublicationForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          const formData = new FormData(e.target);
+          formData.append("action", "addPublication");
+          formData.append("auteur", "التضامن الوطني الطلابي - SNE");
+
+          const data = Object.fromEntries(formData.entries());
+
+          try {
+            await fetch(SCRIPT_URL, {
+              method: "POST",
+              mode: "no-cors",
+              headers: { "Content-Type": "application/x-www-form-urlencoded" },
+              body: new URLSearchParams(data).toString(),
+            });
+            alert("تم نشر النشاط بنجاح");
+            e.target.reset();
+            if (
+              document
+                .getElementById("galerie")
+                .classList.contains("active-page")
+            ) {
+              loadGallery();
+            }
+          } catch (error) {
+            alert("خطأ في النشر، تأكد من الاتصال");
+            console.error(error);
+          }
+        });
 
       async function loadAdminData() {
         const listDiv = document.getElementById("adminList");
@@ -988,14 +1235,21 @@
                 : item.type === "pédagogique"
                   ? "pédagogique"
                   : "contact";
-            const currentStatus = item.status || "en attente";
+            let statusText = item.status || "en attente";
+            if (statusText === "en attente") statusText = "في الانتظار";
+            else if (statusText === "en cours") statusText = "قيد المعالجة";
+            else if (statusText === "terminé") statusText = "تم";
+            else if (statusText === "annulé") statusText = "ملغي";
+
             html += `<div class="preoc-item ${tagClass}">
                         <span class="preoc-tag">${item.type}</span>
                         <span><strong>${item.nom || ""} ${item.prenom || ""}</strong></span>
                         <span>📞 ${item.telephone || ""}</span>
+                        ${item.compte ? `<span>📱 ${item.compte}</span>` : ""}
+                        ${item.residence ? `<span>🏠 ${item.residence}</span>` : ""}
                         <span>📝 ${item.description?.substring(0, 70)}...</span>
                         <span>🕒 ${item.timestamp ? new Date(item.timestamp).toLocaleString("ar-DZ") : ""}</span>
-                        <span><strong>الحالة:</strong> ${currentStatus}</span>
+                        <span style="color: #ffd700;">الحالة: ${statusText}</span>
                     </div>`;
           });
           listDiv.innerHTML = html;
@@ -1005,10 +1259,12 @@
         }
       }
 
-      window.onload = function () {
-        loadStats();
-        loadRecentService();
-      };
+      // Précharger la galerie si active au démarrage
+      if (
+        document.getElementById("galerie").classList.contains("active-page")
+      ) {
+        loadGallery();
+      }
     </script>
   </body>
 </html>
